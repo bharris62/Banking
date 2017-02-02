@@ -30,29 +30,13 @@ public class BankAccount {
     }
     //test method
     public void printAllUsers(){
-        for(String key : bankAccounts.keySet()){
-            System.out.println(key);
-        }
+        System.out.println(bankAccounts);
     }
-    //test method
-    public void printUsersMoney(){
-        for(double value : bankAccounts.values()){
-            System.out.println(value);
-        }
+
+    public void removeAccount(String name){
+        bankAccounts.remove(name);
     }
 
 
-//    public static void main(String[] args) {
-//        BankAccount bank = new BankAccount();
-//
-//        bank.addBankAccount("Blake", 100);
-//        System.out.println(bank.isInBankAccount("Blake"));
-//        System.out.println(bank.isInBankAccount("John"));
-//        bank.addMoney("Blake", 50);
-//        System.out.println(bank.getMoney("Blake"));
-//        bank.withdrawMoney("Blake", 50);
-//        System.out.println(bank.getMoney("Blake"));
-//        bank.printAllUsers();
-//
-//    }
+
 }
