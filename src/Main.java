@@ -6,13 +6,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ATM atm = new ATM();
         atm.getName(scanner);
-        while(true) {
-            try {
-                atm.transaction(scanner);
-                break;
-            } catch (Exception e) {
-                System.out.println("Your error: " + e.getMessage());
-            }
-        }
+
+//        while(true) {
+//            try {
+//                atm.transaction(scanner);
+//                break;
+//            } catch (Exception e) {
+//                System.out.println("Your error: " + e.getMessage());
+//            }
+//        }
     }
 }
