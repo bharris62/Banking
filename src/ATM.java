@@ -5,16 +5,11 @@ import java.util.Scanner;
  * <p>
  * This is a bank atm that allows you to deposit and withdraw money, and get current balances.
  */
+
 public class ATM {
-    private double currentBalance;
-    private String name;
     private final double DEFAULT_VAL = 100;
+    private String name;
     private BankAccount bank = new BankAccount();
-
-    public ATM() {
-        this.currentBalance = DEFAULT_VAL;
-    }
-
 
     public void getName(Scanner scanner) throws Exception {
         System.out.println("Welcome to the ATM, please Enter your name: ");
@@ -25,7 +20,7 @@ public class ATM {
             if(answer.equals("y")){
                 System.out.print("Enter your name you will log in with: ");
                 String newName = scanner.nextLine();
-                this.name = userName;
+                this.name = newName;
                 bank.addBankAccount(this.name, DEFAULT_VAL);
             }
         }
@@ -34,21 +29,22 @@ public class ATM {
     public void transaction(Scanner response) throws Exception {
         while (true) {
             System.out.println("Please Enter 1. Check my balance, 2. Withdraw Funds 3.  Add Funds or 4. Cancel 5.) Close Account");
-            String currentResponse = response.nextLine();
+            String currentResponse = response.nextLine().toLowerCase();
 
-            if (currentResponse.equals("1") || currentResponse.equals("1. Check my balance")) {
+            if (currentResponse.contains("1") || currentResponse.contains("balance")) {
                 System.out.println("Your current balance is $" + bank.getMoney(this.name) + "\n");
 
-            } else if (currentResponse.equals("2") || currentResponse.equals("2. Withdraw Funds")) {
+            } else if (currentResponse.contains("2") || currentResponse.contains("withdraw")) {
                 takeMoney(response);
 
-            } else if (currentResponse.equals("3") || currentResponse.equals("3. Add Funds")) {
+            } else if (currentResponse.contains("3") || currentResponse.contains("add")) {
                 addMoney(response);
 
-            } else if (currentResponse.equals("4") || currentResponse.toLowerCase().contains("cancel")) {
+            } else if (currentResponse.contains("4") || currentResponse.toLowerCase().contains("cancel")) {
                 System.out.println("Thank you " + this.name + ", Please come again. Balance: $" + bank.getMoney(this.name));
                 System.out.println("Would you like to login to another account? [y,n]");
                 String resp2 = response.nextLine().toLowerCase();
+
                 if(resp2.equals("y")){
                     getName(response);
                 }else{
@@ -56,15 +52,16 @@ public class ATM {
                     break;
                 }
                 bank.printAllUsers();
-            } else if ((currentResponse.equals("5") || currentResponse.toLowerCase().contains("delete"))) {
+
+            } else if ((currentResponse.contains("5") || currentResponse.toLowerCase().contains("delete"))) {
                 bank.removeAccount(this.name);
                 break;
+
             }else {
                 throw new Exception("That is not a logical response. Please Enter a [1,2,3,4].");
             }
         }
     }
-
 
     public double addMoney(Scanner response) {
         System.out.print("How much money? ");
@@ -79,7 +76,7 @@ public class ATM {
     public double takeMoney(Scanner response) {
         System.out.print("How much money? ");
         double money = Double.parseDouble(response.nextLine());
-        if (bank.getMoney(this.name) - money > 0) {
+        if (bank.getMoney(this.name) - money > 0 && money > 0) {
             bank.withdrawMoney(this.name, money);
             System.out.println("Your current balance is $" + bank.getMoney(this.name) + "\n");
             return bank.getMoney(this.name);
@@ -91,6 +88,5 @@ public class ATM {
     public String notEnoughMoney() {
         return "Not enough money";
     }
-
 
 }

@@ -1,8 +1,10 @@
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by BHarris on 2/2/17.
+ *
+ * The bank account class takes care of the adding, subtracting and checking if a user is in a bank account.  A user can
+ * also close their account by removing the user from the hashmap.
  */
 public class BankAccount {
     private HashMap<String, Double> bankAccounts = new HashMap<>();
@@ -33,13 +35,8 @@ public class BankAccount {
         bankAccounts.remove(name);
     }
 
-    //test method
     public void printAllUsers(){
         System.out.println(bankAccounts);
     }
-
-
-
-
 
 }
