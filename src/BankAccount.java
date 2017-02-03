@@ -28,14 +28,17 @@ public class BankAccount {
     public double getMoney(String name) {
         return bankAccounts.get(name);
     }
+
+    public void removeAccount(String name){
+        bankAccounts.remove(name);
+    }
+
     //test method
     public void printAllUsers(){
         System.out.println(bankAccounts);
     }
 
-    public void removeAccount(String name){
-        bankAccounts.remove(name);
-    }
+
 
 
 
