@@ -41,16 +41,7 @@ public class ATM {
                 addMoney(response);
 
             } else if (currentResponse.contains("4") || currentResponse.toLowerCase().contains("cancel")) {
-                System.out.println("Thank you " + this.name + ", Please come again. Balance: $" + bank.getMoney(this.name));
-                System.out.println("Would you like to login to another account? [y,n]");
-                String resp2 = response.nextLine().toLowerCase();
-
-                if(resp2.equals("y")){
-                    getName(response);
-                }else{
-                    bank.printAllUsers();
-                    break;
-                }
+                checkCancelResponse(response);
                 bank.printAllUsers();
 
             } else if ((currentResponse.contains("5") || currentResponse.toLowerCase().contains("delete"))) {
@@ -62,6 +53,20 @@ public class ATM {
             }
         }
     }
+
+    public void checkCancelResponse(Scanner response) throws Exception {
+        System.out.println("Thank you " + this.name + ", Please come again. Balance: $" + bank.getMoney(this.name));
+        System.out.println("Would you like to login to another account? [y,n]");
+        String resp2 = response.nextLine().toLowerCase();
+
+        if(resp2.equals("y")){
+            getName(response);
+        }else{
+            bank.printAllUsers();
+            System.exit(0);
+        }
+    }
+
 
     public double addMoney(Scanner response) {
         System.out.print("How much money? ");
