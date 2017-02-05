@@ -39,4 +39,15 @@ public class BankAccount {
         System.out.println(bankAccounts);
     }
 
+    public void printUsersAndBalance() {
+        System.out.println("-----------------------");
+        for (String name : bankAccounts.keySet()) {
+            String key = name.toString();
+            Double value = bankAccounts.get(name);
+            System.out.printf("%-8s", key + ": $" + value);
+            System.out.println();
+        }
+        System.out.println("-----------------------");
+    }
+
 }

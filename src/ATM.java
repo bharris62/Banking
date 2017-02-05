@@ -42,14 +42,14 @@ public class ATM {
 
             } else if (currentResponse.contains("4") || currentResponse.toLowerCase().contains("cancel")) {
                 checkCancelResponse(response);
-                bank.printAllUsers();
+
 
             } else if ((currentResponse.contains("5") || currentResponse.toLowerCase().contains("delete"))) {
                 bank.removeAccount(this.name);
                 break;
 
             }else {
-                throw new Exception("That is not a logical response. Please Enter a [1,2,3,4].");
+                throw new Exception("That is not a logical response. Please Enter a [1,2,3 or 4].");
             }
         }
     }
@@ -62,7 +62,7 @@ public class ATM {
         if(resp2.equals("y")){
             getName(response);
         }else{
-            bank.printAllUsers();
+            bank.printUsersAndBalance();
             System.exit(0);
         }
     }
