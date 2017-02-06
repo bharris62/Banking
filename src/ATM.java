@@ -12,17 +12,24 @@ public class ATM {
     private Bank bankAccount = new Bank();
 
     public void getName(Scanner scanner) throws Exception {
-        System.out.println("Welcome to the ATM, please Enter your name: ");
-        this.name = scanner.nextLine();
-        if(!bankAccount.isInBankAccount(this.name)){
-            System.out.println("No account, Would you like to make an account?[y/n]");
-            String answer = scanner.nextLine().toLowerCase();
-            if(answer.equals("y")){
-                System.out.print("Enter your name you will log in with: ");
-                this.name = scanner.nextLine();
-                bankAccount.addBankAccount(this.name, DEFAULT_VAL);
+        while(true) {
+            System.out.println("Welcome to the ATM, please Enter your name: ");
+            this.name = scanner.nextLine();
+            if (!bankAccount.isInBankAccount(this.name)) {
+                addName(scanner);
+                break;
 
-            } else getName(scanner);
+            }
+        }
+    }
+
+    public void addName(Scanner scanner) {
+        System.out.println("No account, Would you like to make an account?[y/n]");
+        String answer = scanner.nextLine().toLowerCase();
+        if (answer.equals("y")) {
+            System.out.print("Enter your name you will log in with: ");
+            this.name = scanner.nextLine();
+            bankAccount.addBankAccount(this.name, DEFAULT_VAL);
         }
     }
 
