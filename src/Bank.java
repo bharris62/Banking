@@ -6,10 +6,12 @@ import java.util.HashMap;
  * The bank account class takes care of the adding, subtracting and checking if a user is in a bank account.  A user can
  * also close their account by removing the user from the hashmap.
  */
-public class BankAccount {
+public class Bank {
     private HashMap<String, Double> bankAccounts = new HashMap<>();
 
-    public BankAccount(){}
+    public Bank(){
+        bankAccounts.put("sysAdmin", 0.00);
+    }
 
     public void addBankAccount(String name, double money){
         bankAccounts.put(name, money);

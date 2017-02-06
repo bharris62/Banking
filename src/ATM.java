@@ -9,26 +9,28 @@ import java.util.Scanner;
 public class ATM {
     private final double DEFAULT_VAL = 100;
     private String name;
-    private BankAccount bank = new BankAccount();
+    private Bank bank = new Bank();
 
     public void getName(Scanner scanner) throws Exception {
         System.out.println("Welcome to the ATM, please Enter your name: ");
-        String userName = scanner.nextLine();
-        if(!bank.isInBankAccount(userName)){
+        this.name = scanner.nextLine();
+        if(!bank.isInBankAccount(this.name)){
             System.out.println("No account, Would you like to make an account?[y/n]");
             String answer = scanner.nextLine().toLowerCase();
             if(answer.equals("y")){
                 System.out.print("Enter your name you will log in with: ");
-                String newName = scanner.nextLine();
-                this.name = newName;
+                this.name = scanner.nextLine();
                 bank.addBankAccount(this.name, DEFAULT_VAL);
-            }
+
+            } else getName(scanner);
         }
     }
 
+    //sysAdmin comes defaulted, if you login to it you can run "exit" to shut down the program.
     public void transaction(Scanner response) throws Exception {
         while (true) {
-            System.out.println("Please Enter 1. Check my balance, 2. Withdraw Funds 3.  Add Funds or 4. Cancel 5.) Close Account");
+            System.out.printf("Welcome %s,", this.name);
+            System.out.println(" Please Enter 1. Check my balance, 2. Withdraw Funds 3.  Add Funds or 4. Cancel 5.) Close Account");
             String currentResponse = response.nextLine().toLowerCase();
 
             if (currentResponse.contains("1") || currentResponse.contains("balance")) {
@@ -48,9 +50,12 @@ public class ATM {
                 bank.removeAccount(this.name);
                 break;
 
+            } else if ((currentResponse.equals("exit") && this.name.equals("sysAdmin"))){
+                System.exit(0);
             }else {
-                throw new Exception("That is not a logical response. Please Enter a [1,2,3 or 4].");
+                throw new Exception("That is not a logical response. Please Enter a [1,2,3,4, or 5].");
             }
+
         }
     }
 
@@ -63,7 +68,7 @@ public class ATM {
             getName(response);
         }else{
             bank.printUsersAndBalance();
-            System.exit(0);
+            getName(response);
         }
     }
 
