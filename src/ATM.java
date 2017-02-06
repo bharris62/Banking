@@ -48,7 +48,7 @@ public class ATM {
 
             } else if ((currentResponse.contains("5") || currentResponse.toLowerCase().contains("delete"))) {
                 bank.removeAccount(this.name);
-                break;
+                getName(response);
 
             } else if ((currentResponse.equals("exit") && this.name.equals("sysAdmin"))){
                 System.exit(0);

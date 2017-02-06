@@ -7,6 +7,7 @@ import java.util.HashMap;
  * also close their account by removing the user from the hashmap.
  */
 public class Bank {
+    //I feel that the bankAccounts should be held at the bank, not inside the ATM.  The ATM calls the bank to get info.
     private HashMap<String, Double> bankAccounts = new HashMap<>();
 
     public Bank(){
@@ -41,15 +42,18 @@ public class Bank {
         System.out.println(bankAccounts);
     }
 
+    //Since sysAdmin isnt really a true user of the bank, it won't be printed.
     public void printUsersAndBalance() {
         System.out.println("-----------------------");
         for (String name : bankAccounts.keySet()) {
             String key = name.toString();
             Double value = bankAccounts.get(name);
-            System.out.printf("%-8s", key + ": $" + value);
-            System.out.println();
+            if(!key.equals("sysAdmin")){
+                System.out.printf("%-8s", key + ": $" + value);
+                System.out.println();
+            }
+
         }
         System.out.println("-----------------------");
     }
-
 }
