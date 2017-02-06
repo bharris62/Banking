@@ -9,18 +9,18 @@ import java.util.Scanner;
 public class ATM {
     private final double DEFAULT_VAL = 100;
     private String name;
-    private Bank bank = new Bank();
+    private Bank bankAccount = new Bank();
 
     public void getName(Scanner scanner) throws Exception {
         System.out.println("Welcome to the ATM, please Enter your name: ");
         this.name = scanner.nextLine();
-        if(!bank.isInBankAccount(this.name)){
+        if(!bankAccount.isInBankAccount(this.name)){
             System.out.println("No account, Would you like to make an account?[y/n]");
             String answer = scanner.nextLine().toLowerCase();
             if(answer.equals("y")){
                 System.out.print("Enter your name you will log in with: ");
                 this.name = scanner.nextLine();
-                bank.addBankAccount(this.name, DEFAULT_VAL);
+                bankAccount.addBankAccount(this.name, DEFAULT_VAL);
 
             } else getName(scanner);
         }
@@ -34,7 +34,7 @@ public class ATM {
             String currentResponse = response.nextLine().toLowerCase();
 
             if (currentResponse.contains("1") || currentResponse.contains("balance")) {
-                System.out.println("Your current balance is $" + bank.getMoney(this.name) + "\n");
+                System.out.println("Your current balance is $" + bankAccount.getMoney(this.name) + "\n");
 
             } else if (currentResponse.contains("2") || currentResponse.contains("withdraw")) {
                 takeMoney(response);
@@ -47,7 +47,7 @@ public class ATM {
 
 
             } else if ((currentResponse.contains("5") || currentResponse.toLowerCase().contains("delete"))) {
-                bank.removeAccount(this.name);
+                bankAccount.removeAccount(this.name);
                 getName(response);
 
             } else if ((currentResponse.equals("exit") && this.name.equals("sysAdmin"))){
@@ -55,19 +55,18 @@ public class ATM {
             }else {
                 throw new Exception("That is not a logical response. Please Enter a [1,2,3,4, or 5].");
             }
-
         }
     }
 
     public void checkCancelResponse(Scanner response) throws Exception {
-        System.out.println("Thank you " + this.name + ", Please come again. Balance: $" + bank.getMoney(this.name));
+        System.out.println("Thank you " + this.name + ", Please come again. Balance: $" + bankAccount.getMoney(this.name));
         System.out.println("Would you like to login to another account? [y,n]");
         String resp2 = response.nextLine().toLowerCase();
 
         if(resp2.equals("y")){
             getName(response);
         }else{
-            bank.printUsersAndBalance();
+            bankAccount.printUsersAndBalance();
             getName(response);
         }
     }
@@ -77,22 +76,22 @@ public class ATM {
         System.out.print("How much money? ");
         double money = Double.parseDouble(response.nextLine());
         if (money > 0) {
-            bank.addMoney(this.name, money);
+            bankAccount.addMoney(this.name, money);
         }
-        System.out.println("Your current Balance is: " + bank.getMoney(this.name));
-        return bank.getMoney(this.name);
+        System.out.println("Your current Balance is: " + bankAccount.getMoney(this.name));
+        return bankAccount.getMoney(this.name);
     }
 
     public double takeMoney(Scanner response) {
         System.out.print("How much money? ");
         double money = Double.parseDouble(response.nextLine());
-        if (bank.getMoney(this.name) - money > 0 && money > 0) {
-            bank.withdrawMoney(this.name, money);
-            System.out.println("Your current balance is $" + bank.getMoney(this.name) + "\n");
-            return bank.getMoney(this.name);
+        if (bankAccount.getMoney(this.name) - money > 0 && money > 0) {
+            bankAccount.withdrawMoney(this.name, money);
+            System.out.println("Your current balance is $" + bankAccount.getMoney(this.name) + "\n");
+            return bankAccount.getMoney(this.name);
         }
         System.out.println(notEnoughMoney());
-        return bank.getMoney(this.name);
+        return bankAccount.getMoney(this.name);
     }
 
     public String notEnoughMoney() {

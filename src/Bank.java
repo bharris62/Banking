@@ -10,6 +10,7 @@ public class Bank {
     //I feel that the bankAccounts should be held at the bank, not inside the ATM.  The ATM calls the bank to get info.
     private HashMap<String, Double> bankAccounts = new HashMap<>();
 
+    //default user, has the ability to "shut down" the system with "exit" command when in options.
     public Bank(){
         bankAccounts.put("sysAdmin", 0.00);
     }
